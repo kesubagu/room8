@@ -7,24 +7,29 @@ let routes = [
   {
     method: 'POST',
     path: '/user/register',
-    validate: {
-      payload: {
-        username: Joi.string().required(),
-        password: Joi.string().required()
-      }
-    },
     handler: user.register,
+    config: {
+      validate: {
+        payload: {
+          username: Joi.string().required(),
+          email: Joi.string().required(),
+          password: Joi.string().required()
+        }
+      }
+    }
   },
   {
     method: 'POST',
     path: '/user/login',
-    validate: {
-      payload: {
-        username: Joi.string().required(),
-        password: Joi.string().required()
+    handler: user.login,
+    config: {
+      validate: {
+        payload: {
+          username: Joi.string().required(),
+          password: Joi.string().required()
+        }
       }
-    },
-    handler: user.login
+    }
   }
 ];
 
