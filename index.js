@@ -5,17 +5,25 @@ const user = require('./api/routes/userRoutes');
 const server = new Hapi.Server();
 
 server.connection({
-  port:3000,
+  port: 3000,
   host: 'localhost'
 });
-
-server.app.db = mongojs('http://localhost:27017', ['users', 'rooms']);
-
-server.route(user)
-server.start((err) => {
-  if (err) {
-    throw err;
+server.register([
+  {
+    register: require('./plugins/mongodb'),
   }
+], function (err) {
+  if (err) {
+    throw err
+  }
+  server.route(user)
+  server.start((err) => {
+    if (err) {
+      throw err;
+    }
 
-  console.log(`Server running at: ${server.info.uri}`)
+    console.log(`Server running at: ${server.info.uri}`)
+  })
 })
+
+module.exports = server;

@@ -10,11 +10,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^1.0.2",
     "bluebird": "^3.5.0",
     "boom": "^4.2.0",
     "hapi": "^16.1.0",
     "joi": "^10.2.2",
-    "mongojs": "^2.4.0",
-    "node-uuid": "^1.4.7"
+    "mongoose": "^4.8.6"
   }
 }
