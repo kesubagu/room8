@@ -26,6 +26,21 @@ module.exports = {
   },
 
   login: (request, reply) => {
-    reply(Boom.notImplemented());
+    User.findOne({'username': request.payload.username})
+    .then(function (result) {
+      if (!result) {
+        throw Boom.create(404, 'User does not exist.');
+      }
+      return bcrypt.compare(request.payload.password, result.password)
+    })
+    .then(function (passwordMatch) {
+      if (!passwordMatch) {
+        throw Boom.create(401, 'Password or username is wrong.');
+      }
+      return reply({login: passwordMatch});
+    })
+    .catch(function (err) {
+      return reply(Boom.wrap(err));
+    })
   }
 }
