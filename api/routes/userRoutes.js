@@ -11,6 +11,7 @@ let routes = [
     config: {
       validate: {
         payload: {
+          email: Joi.string().optional(),
           username: Joi.string().required(),
           name: Joi.string().required(),
           password: Joi.string().required()
