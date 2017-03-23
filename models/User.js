@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const db = require('../middleware/database');
+
 var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
@@ -8,6 +10,6 @@ var userSchema = new Schema({
   email: 'String'
 });
 
-var User = mongoose.model('User', userSchema);
+var User = db.model('User', userSchema);
 
 module.exports = User;

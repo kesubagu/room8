@@ -4,7 +4,7 @@ const User = require('../../models/User');
 const SALT_ROUNDS = 10;
 module.exports = {
   register: (request, reply) => {
-    let newUser = { email:request.payload.email };
+    let newUser = { email:request.payload.name };
     User.findOne({'username': request.payload.username})
     .then(function (result) {
       if (result) {
