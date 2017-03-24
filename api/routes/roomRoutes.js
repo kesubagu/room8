@@ -12,9 +12,25 @@ let routes = [
           authorization: Joi.string().required()
         }).options({ allowUnknown: true }),
         payload: {
-          roomName: Joi.string().required(),
+          roomName: Joi.string().alphanum().required(),
           roomCode: Joi.string().required(),
           address: Joi.string().optional()
+        }
+      }
+    }
+  },
+  {
+    method: 'PUT',
+    path: '/room/resident',
+    handler: room.putResident,
+    config: {
+      validate: {
+        headers: Joi.object({
+          authorization: Joi.string().required()
+        }).options({ allowUnknown: true }),
+        payload: {
+          roomName: Joi.string().alphanum().required(),
+          roomCode: Joi.string().required()
         }
       }
     }
