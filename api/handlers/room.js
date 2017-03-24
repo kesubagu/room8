@@ -5,11 +5,14 @@ const User = require('../../models/User');
 
 module.exports = {
   register: function (request, reply) {
+    let roomInfo = null;
+    let userInfo = null;
     User.findById(request.headers.authorization)
     .then(function (user) {
       if (!user) {
         return reply(Boom.create(401, 'Missing permissions'))
       }
+      userInfo = user;
       let newRoom = new Room({
         RoomName: request.payload.roomName,
         RoomCode: request.payload.roomCode,
@@ -19,7 +22,18 @@ module.exports = {
       return newRoom.save();
     })
     .then(function (result) {
-      return reply(result);
+      if (!result) {
+        throw Boom.create(443, 'There was a problem try again later')
+      }
+      roomInfo = result;
+      userInfo.roomId.push(roomInfo._id);
+      return userInfo.save();
+    })
+    .then(function (result) {
+      if (!result) {
+        throw Boom.create(444, 'There was a problem try again later')
+      }
+      return reply(roomInfo);
     })
     .catch(function (err) {
       return reply(Boom.wrap(err));
