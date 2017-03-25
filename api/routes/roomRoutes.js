@@ -9,7 +9,7 @@ let routes = [
     config: {
       validate: {
         headers: Joi.object({
-          authorization: Joi.string().required()
+          authorization: Joi.string().alphanum().required()
         }).options({ allowUnknown: true }),
         payload: {
           roomName: Joi.string().alphanum().required(),
@@ -34,7 +34,24 @@ let routes = [
         }
       }
     }
-  }
+  },
+  {
+    method: 'DELETE',
+    path: '/room/resident',
+    handler: room.deleteRoomate,
+    config: {
+      validate: {
+        headers: Joi.object({
+          authorization: Joi.string().alphanum().required()
+        }).options({ allowUnknown: true }),
+        payload: {
+          roomName: Joi.string().alphanum().required(),
+          roomCode: Joi.string().required(),
+          residentId: Joi.string().alphanum().required()
+        }
+      }
+    }
+  },
 ];
 
 module.exports = routes;
