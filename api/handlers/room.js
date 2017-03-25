@@ -10,7 +10,7 @@ module.exports = {
     User.findById(request.headers.authorization)
     .then(function (user) {
       if (!user) {
-        return reply(Boom.create(401, 'Missing permissions'))
+        throw Boom.create(401, 'Missing permissions')
       }
       userInfo = user;
       let newRoom = new Room({
@@ -39,6 +39,7 @@ module.exports = {
       return reply(Boom.wrap(err));
     })
   },
+  
   putResident: function (request, reply) {
     let userInfo = null;
     let roomInfo = null;
