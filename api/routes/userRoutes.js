@@ -11,10 +11,10 @@ let routes = [
     config: {
       validate: {
         payload: {
-          email: Joi.string().optional(),
-          username: Joi.string().required(),
+          email: Joi.string().email().optional(),
+          username: Joi.string().token().required(),
           name: Joi.string().required(),
-          password: Joi.string().required()
+          password: Joi.string().token().required()
         }
       }
     }
@@ -26,8 +26,8 @@ let routes = [
     config: {
       validate: {
         payload: {
-          username: Joi.string().required(),
-          password: Joi.string().required()
+          username: Joi.string().token().required(),
+          password: Joi.string().token().required()
         }
       }
     }
