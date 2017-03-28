@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const User = require('./User')
-const User = require('./Grocery')
+const Grocery = require('./Grocery')
 const db = require('../middleware/database');
 
 var Schema = mongoose.Schema;

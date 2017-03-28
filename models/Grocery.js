@@ -17,7 +17,7 @@ var GrocerySchema = new Schema({
       },
       boughtBy: {
         type: Schema.Types.ObjectId,
-        default: null;
+        default: null
       }
     }
   ],
