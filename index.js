@@ -1,13 +1,19 @@
 const Hapi = require('hapi');
 const mongojs = require('mongojs');
+const fs = require('fs');
 const user = require('./api/routes/userRoutes');
 const room = require('./api/routes/roomRoutes');
 
 const server = new Hapi.Server();
+let tls = {
+  key: fs.readFileSync('./conf/cert/key.pem'),
+  cert: fs.readFileSync('./conf/cert/cert.pem')
+};
 
 server.connection({
   port: 3000,
-  host: 'localhost'
+  host: 'localhost',
+  tls: tls
 });
 
 server.route(user);
