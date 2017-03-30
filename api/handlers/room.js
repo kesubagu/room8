@@ -2,6 +2,7 @@ const Boom = require('Boom');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const Room = require('../../models/Room');
+const Grocery = require('../../models/Grocery');
 const User = require('../../models/User');
 
 module.exports = {
@@ -20,12 +21,18 @@ module.exports = {
         address: request.payload.address || '',
         residentIds: [request.headers.authorization]
       });
-      return newRoom.save();
+      let newGroceryList = new Grocery({
+        items: [],
+        roomId: newRoom._id
+      });
+      newRoom.groceryListId = newGroceryList._id;
+      return Promise.all([newRoom.save(), newGroceryList.save()]);
     })
     .then(function (result) {
       if (!result) {
         throw Boom.create(441, 'There was a problem try again later')
       }
+      result = result[0];
       roomInfo = result;
       userInfo.roomId.push(roomInfo._id);
       return userInfo.save();
