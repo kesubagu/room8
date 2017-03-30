@@ -3,6 +3,7 @@ const mongojs = require('mongojs');
 const fs = require('fs');
 const user = require('./api/routes/userRoutes');
 const room = require('./api/routes/roomRoutes');
+const grocery = require('./api/routes/groceryRoutes');
 
 const server = new Hapi.Server();
 let tls = {
@@ -18,6 +19,7 @@ server.connection({
 
 server.route(user);
 server.route(room);
+server.route(grocery);
 
 server.start((err) => {
   if (err) {
