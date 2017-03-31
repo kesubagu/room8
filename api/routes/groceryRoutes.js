@@ -33,6 +33,21 @@ var routes = [
         }
       }
     }
+  },
+  {
+    method: 'DELETE',
+    path: '/grocery/{listId}/bought',
+    handler: grocery.clearBought,
+    config: {
+      validate: {
+        headers: Joi.object({
+          authorization: Joi.string().alphanum().required()
+        }).options({ allowUnknown: true }),
+        params: {
+          listId: Joi.string().alphanum().required()
+        }
+      }
+    }
   }
 ]
 
