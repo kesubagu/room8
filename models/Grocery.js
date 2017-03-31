@@ -7,7 +7,6 @@ var Schema = mongoose.Schema;
 var GrocerySchema = new Schema({
   items: [
     {
-      _id: false,
       name: {
         type: 'String',
         required: true

@@ -17,6 +17,22 @@ var routes = [
         }
       }
     }
+  },
+  {
+    method: 'GET',
+    path: '/grocery/item/{listId}/{itemId}',
+    handler: grocery.getItem,
+    config: {
+      validate: {
+        headers: Joi.object({
+          authorization: Joi.string().alphanum().required()
+        }).options({ allowUnknown: true }),
+        params: {
+          listId: Joi.string().alphanum().required(),
+          itemId: Joi.string().alphanum().required()
+        }
+      }
+    }
   }
 ]
 
