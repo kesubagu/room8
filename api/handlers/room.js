@@ -143,5 +143,24 @@ module.exports = {
     .catch(function (err) {
       return reply(Boom.wrap(err));
     })
+  },
+
+  getRoom: function (request, reply) {
+    User.findById(request.headers.authorization)
+    .then(function (_userInfo) {
+      if (!_userInfo) {
+        throw Boom.create(401, 'Missing permissions');
+      }
+      return Room.findById(request.params.roomId).populate('groceryListId')
+    })
+    .then(function (_roomInfo) {
+      if (!_roomInfo) {
+        throw Boom.create(404, 'Could not find the room')
+      }
+      return reply(_roomInfo)
+    })
+    .catch(function (err) {
+      return reply(Boom.wrap(err));
+    })
   }
 }
