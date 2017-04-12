@@ -4,11 +4,15 @@ const User = require('../../models/User');
 const SALT_ROUNDS = 10;
 module.exports = {
   register: (request, reply) => {
-    let newUser = { email:request.payload.name };
+    let newUser = {
+      email: request.payload.name,
+      firstName: request.payload.firstName,
+      lastName: request.payload.lastName,
+    };
     User.findOne({'username': request.payload.username})
     .then(function (result) {
       if (result) {
-        throw Boom.create(450, 'Username is taken.');
+        throw Boom.create(470, 'Username is taken.');
       }
       newUser.username = request.payload.username;
       return bcrypt.hash(request.payload.password, SALT_ROUNDS);
