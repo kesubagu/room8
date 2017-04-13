@@ -5,16 +5,17 @@ const user = require('./api/routes/userRoutes');
 const room = require('./api/routes/roomRoutes');
 const grocery = require('./api/routes/groceryRoutes');
 
-const server = new Hapi.Server();
-let tls = {
+const tls =  {
   key: fs.readFileSync('./conf/cert/key.pem'),
   cert: fs.readFileSync('./conf/cert/cert.pem')
-};
+}
+
+const server = new Hapi.Server();
 
 server.connection({
   port: 3000,
-  host: 'localhost',
-  tls: tls
+  host: '0.0.0.0',
+//  tls: tls
 });
 
 server.route(user);
