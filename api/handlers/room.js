@@ -165,6 +165,24 @@ module.exports = {
   },
 
   roomsInfo: function (request, reply) {
-    return reply(Boom.notImplemented());
+    User.findById(request.headers.authorization)
+    .then(function (_userInfo) {
+      if (!_userInfo) {
+        throw Boom.create(401, 'Missing permissions')
+      }
+
+      return Room.find({
+        _id: { $in: _userInfo.roomId }
+      })
+    })
+    .then(function (roomsInfo) {
+      if (!roomsInfo) {
+        return reply(404, 'Something is wrong, please try again later')
+      }
+      return reply(roomsInfo);
+    })
+    .catch(function (err) {
+      return reply(Boom.wrap(err))
+    })
   }
 }
