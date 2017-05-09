@@ -162,5 +162,9 @@ module.exports = {
     .catch(function (err) {
       return reply(Boom.wrap(err));
     })
+  },
+
+  roomsInfo: function (request, reply) {
+    return reply(Boom.notImplemented());
   }
 }

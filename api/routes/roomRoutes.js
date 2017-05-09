@@ -66,6 +66,21 @@ let routes = [
         }
       }
     }
+  },
+  {
+    method: 'GET',
+    path: '/rooms',
+    handler: room.roomsInfo,
+    config: {
+      validate: {
+        headers: Joi.object({
+          authorization: Joi.string().alphanum().required()
+        }).options({allowUnknown: true}),
+        params: {
+          ids: Joi.array().items(Joi.string().alphanum())
+        }
+      }
+    }
   }
 ];
 
